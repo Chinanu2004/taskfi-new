@@ -1,24 +1,20 @@
-'use client'
+'use client';
 
-import { ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import React from 'react';
+import clsx from 'clsx';
 
-interface CardProps {
-  children: ReactNode
-  className?: string
-  onClick?: () => void
-}
+type CardProps = React.HTMLAttributes<HTMLDivElement>;
 
-export default function Card({ children, className = '', onClick }: CardProps) {
+export const Card: React.FC<CardProps> = ({ children, className, ...props }) => {
   return (
-    <motion.div
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      onClick={onClick}
-      className={`bg-surface border border-muted rounded-xl p-4 shadow-md hover:shadow-glow transition duration-300 cursor-pointer ${className}`}
+    <div
+      className={clsx(
+        'bg-white dark:bg-gray-900 rounded-lg shadow-card dark:shadow-cardDark p-6 transition-transform duration-200 hover:scale-[1.02] cursor-pointer',
+        className
+      )}
+      {...props}
     >
       {children}
-    </motion.div>
-  )
-}
+    </div>
+  );
+};
